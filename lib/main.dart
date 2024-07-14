@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weatherapp/cubit/get_weather_cubit/get_weather_cubit.dart';
 import 'package:weatherapp/views/home_view.dart';
 
 void main() {
@@ -10,8 +12,14 @@ class WeatherApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomeView(),
+    return BlocProvider(
+      create: (context) => GetWeatherCubit(),
+      child: MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.amber,
+        ),
+        home:const HomeView(),
+      ),
     );
   }
 }

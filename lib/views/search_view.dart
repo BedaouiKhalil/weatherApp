@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weatherapp/cubit/get_weather_cubit/get_weather_cubit.dart';
 
 class SearchView extends StatelessWidget {
   const SearchView({super.key});
@@ -13,6 +15,11 @@ class SearchView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Center(
           child: TextField(
+            onSubmitted: (value) async {
+              var getWeatherCubit = BlocProvider.of<GetWeatherCubit>(context);
+              getWeatherCubit.getWeather(cityName: value);
+              Navigator.pop(context);
+            },
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
@@ -20,7 +27,7 @@ class SearchView extends StatelessWidget {
               ),
               labelText: 'Search',
               suffixIcon: const Icon(Icons.search),
-              hintText:'Enter City name',
+              hintText: 'Enter City name',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: const BorderSide(
